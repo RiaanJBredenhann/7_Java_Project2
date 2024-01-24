@@ -7,43 +7,50 @@ package project2;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class ClickMe extends Application {
+public class ClickCounter extends Application {
 
     public static void main(String[] args) {
         launch(args);
     }
 
     Button btn;
+    Label lbl;
+    int iClickCount = 0;
 
     @Override
     public void start(Stage primaryStage) {
         // Create the button
-        btn = new Button();
-        btn.setText("Click me please!");
+        btn = new Button("Click me please!");
         btn.setOnAction(e -> buttonClick() );
 
-        // Add the button to the layout pane.
+        // Create the label
+        lbl = new Label("You have not clicked the button.");
+
+        // Add the label and button the layout pane.
         BorderPane pane = new BorderPane();
+        pane.setTop(lbl);
         pane.setCenter(btn);
 
-        // Add the layout pane to the scene.
-        Scene scene = new Scene(pane, 1000, 250);
+        // Add the layout pane to the scene
+        Scene scene = new Scene(pane, 250, 150);
 
-        // Finalize and show the stage
+        // Add the scene to the stage, set the title & show the stage.
         primaryStage.setScene(scene);
-        primaryStage.setTitle("The Click Me App");
+        primaryStage.setTitle("Click Counter");
         primaryStage.show();
     }
 
     public void buttonClick() {
-        if (btn.getText().equals("Click me please!")) {
-            btn.setText("You clicked me!");
+        iClickCount++;
+        if (iClickCount == 1) {
+            lbl.setText("You have clicked the button once");
         } else {
-            btn.setText("Click me please!");
+            lbl.setText("You have clicked the button " + iClickCount + "  times");
         }
     }
-
 }
+
